@@ -4,6 +4,7 @@ import React from 'react'; //U: necesario despues de transformar jsx
 import { Children, useState, useEffect, createRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {useHistory} from "react-router-dom";
+import Typography from '@material-ui/core/Typography';
 
 import { markdownTransformarHTML, urlParamsParaDiccionario } from '../services/pa-lib';
 
@@ -35,7 +36,7 @@ function linkDjangoAEstaApp(link_el, contexto, history) {
 	}
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
 	root: {
 		'& img': {
 			maxWidth: '80%'
@@ -47,9 +48,12 @@ const useStyles = makeStyles({
 		'& pre': {
 			maxWidth: '100%',
 			overflow: 'scroll',
+		},
+		'& a': {
+			color: theme.palette.primary.light
 		}
 	},
-});
+}));
 
 
 export default function MarkdownMostrar(props) {
@@ -68,11 +72,11 @@ export default function MarkdownMostrar(props) {
 
 	return (
 		Children.map(props.children, md =>
-		<div className={classes.root} ref={dom_element} {...props}>
+		<Typography component='div' className={classes.root} ref={dom_element} {...props}>
 			<div  dangerouslySetInnerHTML={{__html: 
 				markdownTransformarHTML( md ).markedHtml
 			}} />
-		</div>
+		</Typography>
 		)
 	)
 }

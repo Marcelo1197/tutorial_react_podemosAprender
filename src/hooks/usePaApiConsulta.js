@@ -34,7 +34,7 @@ export function usePaApiConsulta(consultaInicial, filtrosInicial) {
 		//DBG: console.log('usePaApiConsulta', JSON.stringify(datos, null, 1));
 		//TODO: errores de red, etc
 		setEstado('listo');
-		setDatos(res.datos);
+		setDatos(res);
 	});
 
 	useEffect(() => {
