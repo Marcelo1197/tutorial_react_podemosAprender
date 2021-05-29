@@ -1,7 +1,8 @@
 //INFO: comparar charlas, ej leer y actualizar una todo list con la API de PodemosAprender
-import PaApi, {desarrolloSolamenteUrl, apiConsultar, apiModificar} from '../../services/pa-api';
+import PaApi, {apiConsultar, apiModificar} from '../../services/pa-api';
 import * as util from '../../services/util';
 import {logmsg} from '../../services/util';
+import * as Simular from '../util';
 
 jest.setTimeout(60000);
 
@@ -16,42 +17,13 @@ async function textoCrear(textoEnviado, charlaTitulo, orden) {
 	return res;
 }
 
-async function charlaitemsAdiccionario(ordenEmpiezaCon, charlaTitulo, username, quiereAnidados) {
-	//TODO: a lo mejor consigo la lista de charlaitem de otro lado, separar
-	//TODO: agregar filtros que sean directo en el codigo (sin graphql)
-	const texto_lista_res= await apiConsultar(
-		['charlaitemLista', 'id', 'orden', 
-			['texto', 'texto','fhCreado', 'fhEditado', ['deQuien','username'] ],
-			['charla', 'titulo'],
-		], 
-		{'*orden_Startswith': ordenEmpiezaCon, '*charla_Titulo': charlaTitulo, '*deQuien_Username': username}
-	);
-	const r= {};
-	texto_lista_res.forEach( item => {	
-		//DBG: logmsg('ITEM',{charlaTitulo,item});
-		let orden= item.orden;
-		if (! orden.startsWith('_')) {
-			if (quiereAnidados) { util.set_p(r, '/'+orden, item); }
-			else { r[orden]= item; }
-		}
-		//DBG: logmsg('ITEM',{charlaTitulo,item,r});
-
-		//TODO: consultemos en textos O en charlaItem, devolvamos siempre en el mismo formato (ahora item es un charlaitem) 
-	});
-	//DBG: console.log('Tareas',JSON.stringify(Tareas,null,1));
-	return r;
-}
-
-
 //S: como se usa *********************************************
 
-it('hacerPreguntasYRecibirRespuestas', async () => { 
+it('consultas siguiendo cursor', async () => { 
 	const CuantosTextos= 8;
 	const CuantosPorConsulta= 3;
 
-	desarrolloSolamenteUrl('http://localhost:8000');
-	const login_res= await PaApi.apiLogin('admin','secreto');
-	//DBG: console.log("login_res",login_res);
+	await Simular.comoParticipante('admin');
 
 	//UX: el usuario admin crea un ToDo en una charla, ej para la bandaReActiva
 	const charlaModelo= '#borrame_cursor_'+(new Date().getTime())
@@ -64,7 +36,7 @@ it('hacerPreguntasYRecibirRespuestas', async () => {
 
 	let testVistos= 0;
 	let testConsultas= 0;
-	
+
 	let hayMas= true; //DFLT
 	let cursor= null; //U: desde donde seguir
 	while (hayMas) {
