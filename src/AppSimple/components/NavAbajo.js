@@ -14,20 +14,14 @@ import IconoNavProximo from '@material-ui/icons/NavigateNext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		backgroundColor: theme.palette.background.dark,
+		backgroundColor: theme.palette.type=='light' ? theme.palette.background.dark : theme.palette.background.light,
 	},
 }));
 
 export default function NavAbajo(props) {
 	const classes = useStyles();
-	const [value, setValue] = React.useState(0);
-
 	return (
 		<BottomNavigation
-			value={value}
-			onChange={(event, newValue) => {
-				setValue(newValue);
-			}}
 			showLabels
 			className={classes.root}
 		>

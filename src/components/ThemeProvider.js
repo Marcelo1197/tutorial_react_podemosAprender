@@ -59,7 +59,7 @@ if (import.meta.env.NODE_ENV !== 'production') {
 export function ThemeProvider(props) {
 	const { children } = props;
 
-	const [opcionesTema, setOpcionesTema]= useState(opcionesIniciales);
+	const [opcionesTema, setOpcionesTema]= useState({...opcionesIniciales, ...props.opcionesIniciales});
 
 	const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
 	const preferredType = prefersDarkMode ? 'dark' : 'light';
@@ -68,18 +68,7 @@ export function ThemeProvider(props) {
 	
 	const tema = React.useMemo(() => {
 		const paletaDflt= {
-			primary: {
-				main: tipoPaleta === 'light' ? blue[700] : blue[200],
-			},
-			secondary: {
-				main: tipoPaleta === 'light' ? darken(pink.A400, 0.1) : pink[200],
-			},
 			type: tipoPaleta,
-			background: {
-				default: tipoPaleta === 'light' ? '#fff' : '#121212',
-				level2: tipoPaleta === 'light' ? grey[100] : '#333',
-				level1: tipoPaleta === 'light' ? '#fff' : grey[900],
-			},
 		};
 
 		const temaNuevo = createMuiTheme(
@@ -116,6 +105,7 @@ export function ThemeProvider(props) {
 
 ThemeProvider.propTypes = {
 	children: PropTypes.node,
+	opcionesIniciales: PropTypes.object,
 };
 
 export function useCambiarTemaVisual() {

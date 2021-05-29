@@ -14,8 +14,10 @@ import PaginaNoImplementada from '../pages/NoImplementada';
 
 //S: las que todavia no implemente en su archivo *************
 import Marco from './components/Marco';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useServidorPodemosAprender } from '../contexts/ServidorPodemosAprender';
+import Link from '../components/Link';
+import Typography from '@material-ui/core/Typography';
 
 function PaginaLogout(props) {
 	const { usuario, logout }= useServidorPodemosAprender();
@@ -23,8 +25,10 @@ function PaginaLogout(props) {
 
 	return (
 		<Marco cuandoAccion={props.cuandoAccion}>
-			ToDo<br /> 
-			Volver a <Link to={{pathname: '/'}}>inicio</Link><br />
+			<Typography variant="body1">
+				ToDo<br /> 
+				Volver a <Link to={{pathname: '/'}}>inicio</Link><br />
+			</Typography>
 		</Marco>
 	);
 }
@@ -33,10 +37,12 @@ function PaginaLogout(props) {
 function PaginaInicio(props) {
 	return (
 		<Marco cuandoAccion={props.cuandoAccion} foco='Orientame'>
-			ToDo<br /> 
-			<Link to={{pathname: '/textos/'}}>textos</Link><br />
-			<Link to={{pathname: '/devel/'}}>modo desarrollo</Link><br />
-			<Link to={{pathname: '/logout'}}>logout</Link><br />
+			<Typography variant="body1">
+				ToDo<br /> 
+				<Link to={{pathname: '/textos/'}}>textos</Link><br />
+				<Link to={{pathname: '/devel/'}}>modo desarrollo</Link><br />
+				<Link to={{pathname: '/logout'}}>logout</Link><br />
+			</Typography>
 		</Marco>
 	);
 }

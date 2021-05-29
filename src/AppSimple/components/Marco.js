@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 		minWidth: '100vw',
 		flexGrow: 1,
 		overflow: 'scroll',
+		paddingTop: theme.spacing(2),
 	},
 	navAbajo: {
 		padding: theme.spacing(3, 2),
