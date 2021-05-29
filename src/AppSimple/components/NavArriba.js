@@ -19,16 +19,20 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default function NavArriba() {
+export default function NavArriba(props) {
 	const classes = useStyles();
 
 	return (
 		<AppBar position="static">
 			<Toolbar>
 				<Typography variant="h5" className={classes.title}>
-					Mockup de UI leer texto	
+					{props.foco || 'PodemosAprender'}	
 				</Typography>
-				<IconButton aria-label="Orientame" color="inherit"><IconoBrujula /></IconButton>
+				<IconButton aria-label="Orientame" color="inherit"
+					onClick={() => props.onClick('orientame')}
+				>
+					<IconoBrujula />
+				</IconButton>
 			</Toolbar>
 		</AppBar>
 	);

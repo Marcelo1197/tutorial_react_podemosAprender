@@ -21,28 +21,26 @@ const CFG= { //TODO: mover a un modulo todo para esto
 	PodemosAprenderLoginUrl: "https://si.podemosaprender.org/login/",
 }
 
-const useStyles = makeStyles((theme) => {
-  console.log('THEME',theme);
-  return {
-  paper: {
-    marginTop: theme.spacing(8),
-    padding: theme.spacing(3),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}});
+const useStyles = makeStyles((theme) => ({
+	paper: {
+		marginTop: theme.spacing(8),
+		padding: theme.spacing(3),
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+	},
+	avatar: {
+		margin: theme.spacing(1),
+		backgroundColor: theme.palette.secondary.main,
+	},
+	form: {
+		width: '100%', // Fix IE 11 issue.
+		marginTop: theme.spacing(1),
+	},
+	submit: {
+		margin: theme.spacing(3, 0, 2),
+	},
+}));
 
 export default function LoginTemplate(props) {
   const classes = useStyles();
@@ -54,11 +52,11 @@ export default function LoginTemplate(props) {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography variant="h5">
           Iniciar Sesión
         </Typography>
-				<Typography component="subtitle1">
-					{ props.servidorApi }
+				<Typography>
+					<Link href={ props.servidorApi }>{ props.servidorApi }</Link>
 				</Typography>
         <form className={classes.form} noValidate>
           <TextField

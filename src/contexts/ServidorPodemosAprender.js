@@ -22,7 +22,18 @@ function useProvideServidorPodemosAprender() { //U: este se usa en el componente
 	const USUARIO_NO_SE= {usuario: 'no se'}
   const [usuario, setUsuario] = useState(USUARIO_NO_SE); //U: devuelve usuario y eso lo hace reactivo (actualiza otros)
 	const [consultando, setConsultando]= useState(0); //U: si estamos esperando un fetch
-
+	const registrandoEstado= (promesa) => { //U: envuelve fetch y actualiza si estamos esperando y usuario
+		setConsultando(consultando+1);
+		return promesa
+			.then( r=> { setConsultando(consultando-1); return r; } )
+			.catch( err => { 
+				setConsultando(consultando-1); 
+				if (PaApi.esErrorNecesitaLogin(err)) {
+						setUsuario(null);
+				}
+				throw err; 
+			});
+	};
 	//TODO: agregamos otro estado para ultimo mensaje de error?
 
 	useEffect(() => {
@@ -42,11 +53,12 @@ function useProvideServidorPodemosAprender() { //U: este se usa en el componente
   const login = (usuario, pass) => {
 		setConsultando(consultando+1);
     return (
-			PaApi.apiLogin(usuario, pass)
-				.then( (res) => { setConsultando(consultando-1); 
-					setUsuario(usuario); return res; }) //A: me guardo usuario, avisa a otros componentes
-				.catch( (err) => { setConsultando(consultando-1); 
-					setUsuario(null); throw(err); } ) //A: tambien si fallo
+			registrandoEstado( PaApi.apiLogin(usuario, pass) )
+				.then( (res) => { 
+					if (res.error) { setUsuario(null); throw res.error }
+					else { setUsuario(usuario); return res; }}) //A: me guardo usuario, avisa a otros componentes
+				.catch( (err) => { 
+					setUsuario(null); throw err; } ) //A: tambien si fallo
 		);
   }
 
@@ -62,19 +74,7 @@ function useProvideServidorPodemosAprender() { //U: este se usa en el componente
   }
 
 	const fetch = (query) => {
-		setConsultando(consultando+1);
-		return (
-			PaApi.fetchConToken(query)
-				.then ( r => { setConsultando(consultando-1);
-					return r;
-				})
-				.catch( (err) => { setConsultando(consultando-1);
-					if (PaApi.esErrorNecesitaLogin(err)) {
-						setUsuario(null);
-					}
-					throw err;
-				})
-			)
+		return registrandoEstado( PaApi.fetchConToken(query) )
 		//TODO: manejar errores de conexion
 	}
 

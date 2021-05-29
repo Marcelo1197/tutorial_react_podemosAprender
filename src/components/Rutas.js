@@ -14,7 +14,7 @@ export default function Rutas(props) {
 							path={datosRuta.path}
 							exact={datosRuta.esPrefijo!=true}
 							necesitaLogin={!datosRuta.noNecesitaLogin}	
-							children={<datosRuta.pagina />}
+							children={<datosRuta.pagina {...props}/>}
 						/>
 					))}
 		</Switch>	

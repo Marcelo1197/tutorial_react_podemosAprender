@@ -31,8 +31,8 @@ export default function Login() {
 					servidorApi: api_url(),
 	}
 	return (
-		consultando	
-			?  <h1>Cargando... </h1>
+		consultando>0	
+			?  <h1>Cargando... {consultando}</h1>
 			: <LoginTemplate {...p} />
 	)	
 }
