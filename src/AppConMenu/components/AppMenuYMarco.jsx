@@ -5,14 +5,14 @@ import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 
 import {
-	BrowserRouter as Router,
-	Switch,
+	HashRouter as Router, //U: sino, con el BrowserRouter tu servidor tiene que servir la misma pagina para cualquier url
 	Link as RouterLink,
 } from "react-router-dom";
+import Rutas from '../../components/Rutas';
+
 import Link from "@material-ui/core/Link";
 
 import { useRutasConLogin } from '../../hooks/useRutasConLogin';
-import { RutaConLogin } from '../../components/RutaConLogin';
 
 import {MenuIcon} from '../../components/Logo';
 
@@ -150,7 +150,7 @@ export default function AppMenuLateral(props) {
 			edge="start"
 			className={clsx(classes.menuButton, open && classes.hide)}
 		>
-		 <MenuIcon color={theme.palette.secondary.dark}/>
+			<MenuIcon color={theme.palette.secondary.dark}/>
 		</IconButton>
 	);
 
@@ -179,27 +179,6 @@ export default function AppMenuLateral(props) {
 		</AppBar>
 	);
 
-	const LasRutas = () => (
-		<main
-			className={clsx(classes.content, { [classes.contentShift]: open, })}
-		>
-			<div className={classes.drawerHeader} />
-			<Switch>
-				{props.menu_y_rutas
-						.filter((datosRuta) => (datosRuta.pagina!=null))
-						.map((datosRuta, index) => (
-							<RutaConLogin
-								key={index}
-								path={datosRuta.path}
-								exact={datosRuta.esPrefijo!=true}
-								children={<datosRuta.pagina />}
-								necesitaLogin={!datosRuta.noNecesitaLogin}	
-							/>
-						))}
-			</Switch>	
-		</main>
-	);
-
 	const ItemsDelMenuConLinksALasRutas= () => (
 		<List>
 			{
@@ -222,26 +201,29 @@ export default function AppMenuLateral(props) {
 	);
 
 	return (
-		<Router>
-			<div className={classes.root}>
-				<CssBaseline />
+		<div className={classes.root}>
+			<CssBaseline />
 
-				<BarraNavegacion />
+			<BarraNavegacion />
 
-				<Drawer
-					className={classes.drawer}
-					variant="persistent"
-					anchor="left"
-					open={open}
-					classes={{ paper: classes.drawerPaper, }}
-				>
-					<BtnMenuCerrar />
+			<Drawer
+				className={classes.drawer}
+				variant="persistent"
+				anchor="left"
+				open={open}
+				classes={{ paper: classes.drawerPaper, }}
+			>
+				<BtnMenuCerrar />
 
-					<ItemsDelMenuConLinksALasRutas />
-				</Drawer>
+				<ItemsDelMenuConLinksALasRutas />
+			</Drawer>
 
-				<LasRutas />
-			</div>
-		</Router>
+			<main
+				className={clsx(classes.content, { [classes.contentShift]: open, })}
+			>
+				<div className={classes.drawerHeader} />
+				<Rutas {...props} />
+			</main>
+		</div>
 	);
 }

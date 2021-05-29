@@ -8,12 +8,18 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { ProvideServidorPodemosAprender} from '../contexts/ServidorPodemosAprender';
 
+import {
+	HashRouter as Router, //U: sino, con el BrowserRouter tu servidor tiene que servir la misma pagina para cualquier url
+} from "react-router-dom";
+
 export default function ContextoComun({children}) {
 	return (
 		<ThemeProvider>
 			<CssBaseline/>
 			<ProvideServidorPodemosAprender>
-				{children}
+				<Router>
+					{children}
+				</Router>
 			</ProvideServidorPodemosAprender>
 		</ThemeProvider>
 	);
