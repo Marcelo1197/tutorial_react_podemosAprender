@@ -5,7 +5,8 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+		"test": "jest"
   },
   "dependencies": {
     "@fontsource/roboto": "^4.3.0",
