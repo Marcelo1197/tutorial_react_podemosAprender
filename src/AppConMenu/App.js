@@ -1,30 +1,23 @@
 //INFO: punto de entrada principal a la App, mantenerlo limpio, tiene que servir de indice
 
 import React from 'react';
-import { ThemeProvider } from './ThemeProvider.js';
-import CssBaseline from '@material-ui/core/CssBaseline';
 
-
-import { ProvideServidorPodemosAprender} from './contexts/ServidorPodemosAprender';
-
-import { theme } from './Theme';
-import './index.css';
+import ContextoComun from '../components/ContextoComun';
 
 import AppMenuYMarco from './components/AppMenuYMarco';
-import Login from './pages/Login/Login';
+import Login from '../pages/Login/Login';
 
+import Inicio from '../pages/Inicio';
+import Textos from '../pages/Textos';
 
-import Inicio from './pages/Inicio';
-import Textos from './pages/Textos';
+import QueHago from '../pages/QueHago';
+import PaginaTexto from '../pages/Texto';
+import PaginaTextoEditar from '../pages/TextoEditar';
+import PaginaQueHago from '../pages/ToDo';
+import Charla from '../pages/Charla';
 
-import QueHago from './pages/QueHago';
-import PaginaTexto from './pages/Texto';
-import PaginaTextoEditar from './pages/TextoEditar';
-import PaginaQueHago from './pages/ToDo';
-import Charla from './pages/Charla';
-
-import PaginaModoDesarrollo from './pages/ModoDesarrollo';
-import PaginaNoImplementada from './pages/NoImplementada';
+import PaginaModoDesarrollo from '../pages/ModoDesarrollo';
+import PaginaNoImplementada from '../pages/NoImplementada';
 
 const MenuYRutas = [
 	{
@@ -123,11 +116,8 @@ const MenuYRutas = [
 
 export default function App() {
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline/>
-			<ProvideServidorPodemosAprender>
-				<AppMenuYMarco menu_y_rutas={MenuYRutas} />;
-			</ProvideServidorPodemosAprender>
-		</ThemeProvider>
+		<ContextoComun>
+			<AppMenuYMarco menu_y_rutas={MenuYRutas} />;
+		</ContextoComun>
 	);
 }

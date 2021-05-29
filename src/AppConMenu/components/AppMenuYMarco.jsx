@@ -11,10 +11,10 @@ import {
 } from "react-router-dom";
 import Link from "@material-ui/core/Link";
 
-import { useRutasConLogin } from '../hooks/useRutasConLogin';
-import { RutaConLogin } from './RutaConLogin';
+import { useRutasConLogin } from '../../hooks/useRutasConLogin';
+import { RutaConLogin } from '../../components/RutaConLogin';
 
-import {MenuIcon} from './Logo';
+import {MenuIcon} from '../../components/Logo';
 
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
