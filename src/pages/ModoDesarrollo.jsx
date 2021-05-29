@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 	btn: {
 		'&' : {
 			width: '8em',
-			marginRight: '10px',
+			margin: theme.spacing(1),
 		}
 	}
 }));

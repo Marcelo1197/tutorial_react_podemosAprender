@@ -42,7 +42,10 @@ export default function Marco(props) {
 				{props.children}
 			</Container>
 
-			<NavAbajo className={classes.navAbajo} onClick={props.cuandoAccion}/>
+			{props.sinNavAbajo 
+				? null
+				: (<NavAbajo className={classes.navAbajo} onClick={props.cuandoAccion}/>)
+			}
 		</div>
 	);
 }

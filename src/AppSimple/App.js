@@ -9,7 +9,7 @@ import Rutas from '../components/Rutas';
 
 import Login from '../pages/Login/Login';
 import Textos from './components/TextosLeer';
-import PaginaModoDesarrollo from '../pages/ModoDesarrollo';
+import ContenidoModoDesarrollo from '../pages/ModoDesarrollo';
 import PaginaNoImplementada from '../pages/NoImplementada';
 
 //S: las que todavia no implemente en su archivo *************
@@ -24,7 +24,7 @@ function PaginaLogout(props) {
 	useEffect( () => logout(), [usuario] );
 
 	return (
-		<Marco cuandoAccion={props.cuandoAccion}>
+		<Marco cuandoAccion={props.cuandoAccion} sinNavAbajo>
 			<Typography variant="body1">
 				ToDo<br /> 
 				Volver a <Link to={{pathname: '/'}}>inicio</Link><br />
@@ -36,7 +36,7 @@ function PaginaLogout(props) {
 
 function PaginaInicio(props) {
 	return (
-		<Marco cuandoAccion={props.cuandoAccion} foco='Orientame'>
+		<Marco cuandoAccion={props.cuandoAccion} foco='Orientame' sinNavAbajo>
 			<Typography variant="body1">
 				ToDo<br /> 
 				<Link to={{pathname: '/textos/'}}>textos</Link><br />
@@ -47,6 +47,13 @@ function PaginaInicio(props) {
 	);
 }
 
+function PaginaDesarrollo(props) {
+	return (
+		<Marco cuandoAccion={props.cuandoAccion} foco='Probar esta app' sinNavAbajo>
+			<ContenidoModoDesarrollo />
+		</Marco>
+	)
+}
 
 //S: Una lista de rutas y que hacer cuando se abren **********
 const MenuYRutas = [
@@ -78,7 +85,7 @@ const MenuYRutas = [
 	{
 		path: '/devel/',
 		dsc: 'Servidor',
-		pagina: PaginaModoDesarrollo,
+		pagina: PaginaDesarrollo,
 		noNecesitaLogin: true,
 	},
 	{
