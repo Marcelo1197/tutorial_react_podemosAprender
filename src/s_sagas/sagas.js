@@ -45,13 +45,13 @@ function* fetchProducts() {
 	const { datos, error } = yield call(promesaAdict_f(simularFetchEnLaApi))
 	console.log('fetchProducts', { datos, error });
 	if (datos)
-		yield put({ type: 'PRODUCTS_RECEIVED', products: datos })
+		yield put({ type: 'ejemplo/PRODUCTS_RECEIVED', products: datos })
 	else
-		yield put({ type: 'PRODUCTS_REQUEST_FAILED', error })
+		yield put({ type: 'ejemplo/PRODUCTS_REQUEST_FAILED', error })
 }
 
 function* buscarProductosSaga() {
-	yield takeEvery('BUSCAR_PRODUCTOS', fetchProducts)
+	yield takeEvery('ejemplo/BUSCAR_PRODUCTOS', fetchProducts)
 }
 
 export function* rootSaga() { //U: un solo punto de entrada para todas las "sagas"

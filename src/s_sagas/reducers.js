@@ -1,4 +1,4 @@
-import { createReducer } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
 const estadoInicial= {
 	num: 0, 
@@ -6,25 +6,30 @@ const estadoInicial= {
 };
 
 //VER: https://redux-toolkit.js.org/api/createReducer
-const reducer= createReducer(estadoInicial, (builder) => {
-	builder
-    .addCase('INCREMENT', (state,action) => {state.num++})
-    .addCase('DECREMENT', (state,action) => {state.num--})
-		.addCase('BUSCAR_PRODUCTOS', (state,action) => {
-			state.productos.estado= 'buscando'
-			state.productos.error= null
-		})
-		.addCase('PRODUCTS_REQUEST_FAILED', (state,action) => {
-			state.productos.estado= 'error'
-			state.productos.error= action.error
-		})
-		.addCase('PRODUCTS_RECEIVED', (state,action) => {
-			state.productos.estado= 'ok'
-			state.productos.error= null
-			state.productos.datos.push(action.products);
-		})
-   	.addDefaultCase((state,action) => {}) 
-  }
-)
+//VER: https://redux-toolkit.js.org/api/createReducer#usage-with-the-map-object-notation
+const actionXreducer= {
+	'INCREMENT': (state,action) => {state.num++},
+	'DECREMENT': (state,action) => {state.num--},
+	'BUSCAR_PRODUCTOS': (state,action) => {
+		state.productos.estado= 'buscando'
+		state.productos.error= null
+	},
+	'PRODUCTS_REQUEST_FAILED': (state,action) => {
+		state.productos.estado= 'error'
+		state.productos.error= action.error
+	},
+	'PRODUCTS_RECEIVED': (state,action) => {
+		state.productos.estado= 'ok'
+		state.productos.error= null
+		state.productos.datos.push(action.products);
+	},
+}
 
-export default reducer;
+//VER: https://redux-toolkit.js.org/api/createSlice
+export const slice= createSlice({
+	name: 'ejemplo',
+	initialState: estadoInicial,
+	reducers: actionXreducer,
+})
+
+export default slice.reducer;
