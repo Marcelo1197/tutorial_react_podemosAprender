@@ -5,6 +5,7 @@ const estadoInicial= {
 	productos: {estado: 'ok', error: null, datos: []}
 };
 
+//VER: https://redux-toolkit.js.org/api/createReducer
 const reducer= createReducer(estadoInicial, (builder) => {
 	builder
     .addCase('INCREMENT', (state,action) => {state.num++})
