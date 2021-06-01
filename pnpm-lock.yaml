@@ -6,6 +6,7 @@ specifiers:
   '@material-ui/icons': ^4.11.2
   '@material-ui/lab': ^4.0.0-alpha.58
   '@material-ui/utils': ^4.11.2
+  '@reduxjs/toolkit': ^1.5.1
   '@vitejs/plugin-react-refresh': ^1.3.1
   clsx: ^1.1.1
   esbuild-jest: ^0.5.0
@@ -19,8 +20,11 @@ specifiers:
   react-dom: ^17.0.2
   react-helmet-async: ^1.0.8
   react-lorem-ipsum: ^1.4.9
+  react-redux: ^7.2.4
   react-router-dom: ^5.2.0
   react-spring: ^9.1.2
+  redux: ^4.1.0
+  redux-saga: ^1.1.3
   rewire: ^5.0.0
   semantic-ui-css: ^2.4.1
   semantic-ui-react: ^2.0.3
@@ -33,6 +37,7 @@ dependencies:
   '@material-ui/icons': 4.11.2_f543984b3e6c18c2e2e104a9ecbda934
   '@material-ui/lab': 4.0.0-alpha.58_f543984b3e6c18c2e2e104a9ecbda934
   '@material-ui/utils': 4.11.2_react-dom@17.0.2+react@17.0.2
+  '@reduxjs/toolkit': 1.5.1
   clsx: 1.1.1
   lodash: 4.17.21
   marked: 2.0.5
@@ -40,8 +45,11 @@ dependencies:
   react-dom: 17.0.2_react@17.0.2
   react-helmet-async: 1.0.9_react-dom@17.0.2+react@17.0.2
   react-lorem-ipsum: 1.4.9
+  react-redux: 7.2.4_react-dom@17.0.2+react@17.0.2
   react-router-dom: 5.2.0_react@17.0.2
   react-spring: 9.1.2_react-dom@17.0.2+react@17.0.2
+  redux: 4.1.0
+  redux-saga: 1.1.3
   rewire: 5.0.0
   semantic-ui-css: 2.4.1
   semantic-ui-react: 2.0.3_react-dom@17.0.2+react@17.0.2
@@ -963,6 +971,53 @@ packages:
       react-dom: 17.0.2_react@17.0.2
     dev: false
 
+  /@redux-saga/core/1.1.3:
+    resolution: {integrity: sha512-8tInBftak8TPzE6X13ABmEtRJGjtK17w7VUs7qV17S8hCO5S3+aUTWZ/DBsBJPdE8Z5jOPwYALyvofgq1Ws+kg==}
+    dependencies:
+      '@babel/runtime': 7.14.0
+      '@redux-saga/deferred': 1.1.2
+      '@redux-saga/delay-p': 1.1.2
+      '@redux-saga/is': 1.1.2
+      '@redux-saga/symbols': 1.1.2
+      '@redux-saga/types': 1.1.0
+      redux: 4.1.0
+      typescript-tuple: 2.2.1
+    dev: false
+
+  /@redux-saga/deferred/1.1.2:
+    resolution: {integrity: sha512-908rDLHFN2UUzt2jb4uOzj6afpjgJe3MjICaUNO3bvkV/kN/cNeI9PMr8BsFXB/MR8WTAZQq/PlTq8Kww3TBSQ==}
+    dev: false
+
+  /@redux-saga/delay-p/1.1.2:
+    resolution: {integrity: sha512-ojc+1IoC6OP65Ts5+ZHbEYdrohmIw1j9P7HS9MOJezqMYtCDgpkoqB5enAAZrNtnbSL6gVCWPHaoaTY5KeO0/g==}
+    dependencies:
+      '@redux-saga/symbols': 1.1.2
+    dev: false
+
+  /@redux-saga/is/1.1.2:
+    resolution: {integrity: sha512-OLbunKVsCVNTKEf2cH4TYyNbbPgvmZ52iaxBD4I1fTif4+MTXMa4/Z07L83zW/hTCXwpSZvXogqMqLfex2Tg6w==}
+    dependencies:
+      '@redux-saga/symbols': 1.1.2
+      '@redux-saga/types': 1.1.0
+    dev: false
+
+  /@redux-saga/symbols/1.1.2:
+    resolution: {integrity: sha512-EfdGnF423glv3uMwLsGAtE6bg+R9MdqlHEzExnfagXPrIiuxwr3bdiAwz3gi+PsrQ3yBlaBpfGLtDG8rf3LgQQ==}
+    dev: false
+
+  /@redux-saga/types/1.1.0:
+    resolution: {integrity: sha512-afmTuJrylUU/0OtqzaRkbyYFFNgCF73Bvel/sw90pvGrWIZ+vyoIJqA6eMSoA6+nb443kTmulmBtC9NerXboNg==}
+    dev: false
+
+  /@reduxjs/toolkit/1.5.1:
+    resolution: {integrity: sha512-PngZKuwVZsd+mimnmhiOQzoD0FiMjqVks6ituO1//Ft5UEX5Ca9of13NEjo//pU22Jk7z/mdXVsmDfgsig1osA==}
+    dependencies:
+      immer: 8.0.4
+      redux: 4.1.0
+      redux-thunk: 2.3.0
+      reselect: 4.0.0
+    dev: false
+
   /@rollup/pluginutils/4.1.0:
     resolution: {integrity: sha512-TrBhfJkFxA+ER+ew2U2/fHbebhLT/l/2pRk0hfj9KusXUuRXd2v0R58AfaZK9VXDQ4TogOSEmICVrQAA3zFnHQ==}
     engines: {node: '>= 8.0.0'}
@@ -1037,6 +1092,13 @@ packages:
       '@types/node': 15.6.1
     dev: true
 
+  /@types/hoist-non-react-statics/3.3.1:
+    resolution: {integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==}
+    dependencies:
+      '@types/react': 17.0.8
+      hoist-non-react-statics: 3.3.2
+    dev: false
+
   /@types/istanbul-lib-coverage/2.0.3:
     resolution: {integrity: sha512-sz7iLqvVUg1gIedBOvlkxPlc8/uVzyS5OwGz1cKjXzkl3FpL3al0crU8YGU1WoHkxn0Wxbw5tyi6hvzJKNzFsw==}
     dev: true
@@ -1065,6 +1127,15 @@ packages:
     resolution: {integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==}
     dev: false
 
+  /@types/react-redux/7.1.16:
+    resolution: {integrity: sha512-f/FKzIrZwZk7YEO9E1yoxIuDNRiDducxkFlkw/GNMGEnK9n4K8wJzlJBghpSuOVDgEUHoDkDF7Gi9lHNQR4siw==}
+    dependencies:
+      '@types/hoist-non-react-statics': 3.3.1
+      '@types/react': 17.0.8
+      hoist-non-react-statics: 3.3.2
+      redux: 4.1.0
+    dev: false
+
   /@types/react-transition-group/4.4.1:
     resolution: {integrity: sha512-vIo69qKKcYoJ8wKCJjwSgCTM+z3chw3g18dkrDfVX665tMH7tmbDxEAnPdey4gTlwZz5QuHGzd+hul0OVZDqqQ==}
     dependencies:
@@ -1073,6 +1144,14 @@ packages:
 
   /@types/react/17.0.7:
     resolution: {integrity: sha512-lBc3fY20hRFQ/pXQT2XdtmpJeXZnRH8N+WPnEzEfPTzuKmaJTA7k/xGWHBaPvKceKpbf0ZnMlLWY/0sFZ5rfkw==}
+    dependencies:
+      '@types/prop-types': 15.7.3
+      '@types/scheduler': 0.16.1
+      csstype: 3.0.8
+    dev: false
+
+  /@types/react/17.0.8:
+    resolution: {integrity: sha512-3sx4c0PbXujrYAKwXxNONXUtRp9C+hE2di0IuxFyf5BELD+B+AXL8G7QrmSKhVwKZDbv0igiAjQAMhXj8Yg3aw==}
     dependencies:
       '@types/prop-types': 15.7.3
       '@types/scheduler': 0.16.1
@@ -2570,6 +2649,10 @@ packages:
   /ignore/4.0.6:
     resolution: {integrity: sha512-cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==}
     engines: {node: '>= 4'}
+
+  /immer/8.0.4:
+    resolution: {integrity: sha512-jMfL18P+/6P6epANRvRk6q8t+3gGhqsJ9EuJ25AXE+9bNTYtssvzeYbEd0mXRYWCmmXSIbnlpz6vd6iJlmGGGQ==}
+    dev: false
 
   /import-fresh/3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -4215,6 +4298,28 @@ packages:
       warning: 4.0.3
     dev: false
 
+  /react-redux/7.2.4_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-hOQ5eOSkEJEXdpIKbnRyl04LhaWabkDPV+Ix97wqQX3T3d2NQ8DUblNXXtNMavc7DpswyQM6xfaN4HQDKNY2JA==}
+    peerDependencies:
+      react: ^16.8.3 || ^17
+      react-dom: '*'
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.14.0
+      '@types/react-redux': 7.1.16
+      hoist-non-react-statics: 3.3.2
+      loose-envify: 1.4.0
+      prop-types: 15.7.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-is: 16.13.1
+    dev: false
+
   /react-refresh/0.9.0:
     resolution: {integrity: sha512-Gvzk7OZpiqKSkxsQvO/mbTN1poglhmAV7gR/DdIrRrSMXraRQQlfikRJOr3Nb9GTMPC5kof948Zy6jJZIFtDvQ==}
     engines: {node: '>=0.10.0'}
@@ -4296,6 +4401,22 @@ packages:
       object-assign: 4.1.1
     dev: false
 
+  /redux-saga/1.1.3:
+    resolution: {integrity: sha512-RkSn/z0mwaSa5/xH/hQLo8gNf4tlvT18qXDNvedihLcfzh+jMchDgaariQoehCpgRltEm4zHKJyINEz6aqswTw==}
+    dependencies:
+      '@redux-saga/core': 1.1.3
+    dev: false
+
+  /redux-thunk/2.3.0:
+    resolution: {integrity: sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==}
+    dev: false
+
+  /redux/4.1.0:
+    resolution: {integrity: sha512-uI2dQN43zqLWCt6B/BMGRMY6db7TTY4qeHHfGeKb3EOhmOKjU3KdWvNLJyqaHRksv/ErdNH7cFZWg9jXtewy4g==}
+    dependencies:
+      '@babel/runtime': 7.14.0
+    dev: false
+
   /regenerator-runtime/0.13.7:
     resolution: {integrity: sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==}
     dev: false
@@ -4349,6 +4470,10 @@ packages:
     resolution: {integrity: sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /reselect/4.0.0:
+    resolution: {integrity: sha512-qUgANli03jjAyGlnbYVAV5vvnOmJnODyABz51RdBN7M4WaVu8mecZWgyQNkG8Yqe3KRGRt0l4K4B3XVEULC4CA==}
+    dev: false
 
   /resolve-cwd/3.0.0:
     resolution: {integrity: sha512-OrZaX2Mb+rJCpH/6CpSqt9xFVpN++x01XnN2ie9g6P5/3xelLAkXWVADpdz1IHD/KFfEXyE6V0U01OQ3UO2rEg==}
@@ -4988,6 +5113,22 @@ packages:
     dependencies:
       is-typedarray: 1.0.0
     dev: true
+
+  /typescript-compare/0.0.2:
+    resolution: {integrity: sha512-8ja4j7pMHkfLJQO2/8tut7ub+J3Lw2S3061eJLFQcvs3tsmJKp8KG5NtpLn7KcY2w08edF74BSVN7qJS0U6oHA==}
+    dependencies:
+      typescript-logic: 0.0.0
+    dev: false
+
+  /typescript-logic/0.0.0:
+    resolution: {integrity: sha512-zXFars5LUkI3zP492ls0VskH3TtdeHCqu0i7/duGt60i5IGPIpAHE/DWo5FqJ6EjQ15YKXrt+AETjv60Dat34Q==}
+    dev: false
+
+  /typescript-tuple/2.2.1:
+    resolution: {integrity: sha512-Zcr0lbt8z5ZdEzERHAMAniTiIKerFCMgd7yjq1fPnDJ43et/k9twIFQMUYff9k5oXcsQ0WpvFcgzK2ZKASoW6Q==}
+    dependencies:
+      typescript-compare: 0.0.2
+    dev: false
 
   /unbox-primitive/1.0.1:
     resolution: {integrity: sha512-tZU/3NqK3dA5gpE1KtyiJUrEB0lxnGkMFHptJ7q6ewdZ8s12QrODwNbhIJStmJkd1QDXa1NRA8aF2A1zk/Ypyw==}
