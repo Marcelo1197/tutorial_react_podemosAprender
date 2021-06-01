@@ -1,6 +1,7 @@
 //INFO: semantic ui con temas configurables
 
 import React, { useState } from 'react';
+//VER: https://github.com/nfl/react-helmet
 import {Helmet} from 'react-helmet'; //U: cambiar valores en html head
 import { Button } from 'semantic-ui-react';
 
