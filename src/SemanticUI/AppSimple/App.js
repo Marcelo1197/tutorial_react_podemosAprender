@@ -23,14 +23,16 @@ import {
 	Icon,
 } from 'semantic-ui-react'
 
-const MiMenu= () => (
+const MiMenu= ({titulo}) => (
 	<Menu fixed='top' inverted>
 		<Container>
 			<Menu.Item as='a' header>
 				<Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} />
-				Project Name
+				{titulo||'Haciendo X'}	
 			</Menu.Item>
-			<Menu.Item as='a' position='right'>Acciones</Menu.Item>
+			<Menu.Item as={RouterLink} position='right' to={{pathname: '/'}}>
+				<Icon name='compass' />
+			</Menu.Item>
 		</Container>
 	</Menu>
 )
@@ -91,7 +93,9 @@ export default function App() {
 					<PaginaUnTexto />
 				</Route>
 				<Route path='/' exact>
-					<RouterLink to='texto'>Texto</RouterLink>	
+					<ul>
+						<li><RouterLink to='texto'>Texto</RouterLink></li>
+					</ul>
 				</Route>
 			</Switch>
 		</Router>
