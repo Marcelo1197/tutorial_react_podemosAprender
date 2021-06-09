@@ -12,6 +12,8 @@ import {
 
 import { LoremIpsum, loremIpsum, name, surname, fullname, username } from 'react-lorem-ipsum';
 
+import MarkdownPA from '../../components/MarkdownPA'
+
 import {
 	Container,
 	Divider,
@@ -144,22 +146,68 @@ function PaginaFoco() {
 	)
 }
 
+function PaginaBanda() {
+	return (
+	<div>
+		<Container text style={{ marginTop: '7em' }}>
+			<h2>Con</h2>
+				<div>
+				<a href="#">pepe@hola.com (online)</a> <a href="#">mauriciocap@gmail.com</a>
+					<div>
+						<button>Buscar más personas</button>
+					</div>
+				</div>
+		</Container>
+	</div>
+	)
+}
+
 
 function PaginaOrientame() {
 	return (
 		<div>
-			Revisión general de como vas	
+			<h1>Revisión general de como vas</h1>
+				<h2>Tu presentación</h2>
+				<h2>Tus proyectos</h2>
+					<ul>
+						<li>django, faltan 3 items, última actualización hace 3 días</li>
+						<li>linkedin, faltan 2 items, última actualización hace 15 días</li>
+					</ul>
+				<h2>Tu banquito</h2>
 		</div>
 	)
 }
+
+function PaginaPropuestas() {
+	return (
+		<div>
+			<h1>Propuestas en el grupo</h1>
+				<h2>Hagamos una app de citas</h2>
+					<p>Por XYZ, hace 5 días, se sumaron ABX 3hs django, MauricioCap 2hs consultoria, ...</p>
+					<p>Ofrezco 20hs de diseño</p>
+					<div>Pido django, react, UX</div>
+					<ul>
+						<li>3hs django, para ...</li>
+						<li>5hs react, para ...</li>
+					</ul>
+		</div>
+	)
+}
+
 
 export default function App() {
 	const [quePagina, setQuePagina]= useState();
 	return (
 		<Router>
 			<Switch>
+				<Route path='/propuestas'>
+					<PaginaPropuestas />
+				</Route>
 				<Route path='/orientame'>
 					<PaginaOrientame />
+				</Route>
+				<Route path='/foco-banda'>
+					<PaginaBanda />
 				</Route>
 				<Route path='/foco'>
 					<PaginaFoco />
@@ -171,7 +219,11 @@ export default function App() {
 					<h1>Pantallas que quiero</h1>
 					<ul>
 						<li><RouterLink to='texto'>Texto</RouterLink></li>
+						<li><RouterLink to='propuestas'>Propuestas</RouterLink></li>
 					</ul>
+					<MarkdownPA>
+						Empieza en [orientame](/orientame)
+					</MarkdownPA>
 				</Route>
 			</Switch>
 		</Router>
