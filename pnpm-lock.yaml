@@ -16,6 +16,7 @@ specifiers:
   lodash: ^4.17.21
   marked: ^2.0.5
   node-fetch: ^2.6.1
+  ramda: ^0.27.1
   react: ^17.0.2
   react-dom: ^17.0.2
   react-helmet: ^6.1.0
@@ -45,6 +46,7 @@ dependencies:
   clsx: 1.1.1
   lodash: 4.17.21
   marked: 2.0.5
+  ramda: 0.27.1
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-helmet: 6.1.0_react@17.0.2
@@ -4453,6 +4455,10 @@ packages:
 
   /rafz/0.1.14:
     resolution: {integrity: sha512-YiQkedSt1urYtYbvHhTQR3l67M8SZbUvga5eJFM/v4vx/GmDdtXlE2hjJIyRjhhO/PjcdGC+CXCYOUA4onit8w==}
+    dev: false
+
+  /ramda/0.27.1:
+    resolution: {integrity: sha512-PgIdVpn5y5Yns8vqb8FzBUEYn98V3xcPgawAkkgj0YJ0qDsnHCiNmZYfOGMgOvoB0eWFLpYbhxUR3mxfDIMvpw==}
     dev: false
 
   /react-dom/17.0.2_react@17.0.2:

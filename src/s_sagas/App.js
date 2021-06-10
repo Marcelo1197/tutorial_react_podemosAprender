@@ -16,7 +16,6 @@ function Contenido() {
 				onIncrement={() => action('ejemplo/INCREMENT')}
 				onIncrementAsync={() => action('ejemplo/INCREMENT_ASYNC')}
 				onDecrement={() => action('ejemplo/DECREMENT')} />
-
 		<div>
 			<button onClick={() => action('ejemplo/BUSCAR_PRODUCTOS')}>Buscar productos</button>
 		</div>
