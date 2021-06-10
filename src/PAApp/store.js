@@ -1,5 +1,7 @@
 //INFO: crear un store redux con sagas
-import { configureStore } from '@reduxjs/toolkit'
+
+
+import { configureStore, isPlain } from '@reduxjs/toolkit'
 import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
@@ -8,11 +10,18 @@ import { rootSaga } from './sagas'
 
 const SagaMiddleware = createSagaMiddleware()
 
+//VER: https://redux-toolkit.js.org/api/serializabilityMiddleware
+const isSerializable = (value) => (value instanceof Date) || isPlain(value);
+
 const store= configureStore({
 	reducer: {
 		pa: reducer,
 	},
-	middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(SagaMiddleware),
+	middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+		serializableCheck: {
+			isSerializable //A: no poner warning por fechas
+		},
+	}).concat(SagaMiddleware), //A: usamos sagas para ejecutar acciones
 	devTools: import.meta.env.NODE_ENV !== 'production',
 })
 

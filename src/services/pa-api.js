@@ -185,7 +185,7 @@ fetchData('http://127.0.0.1:8000/graphql',{method:'POST', headers: {
 */
 
 export function esErrorNecesitaLogin(ex) {
-	return ex.message === ErrorMsgNecesitaLogin;
+	return (ex && ex.message === ErrorMsgNecesitaLogin);
 }
 
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import _ from 'lodash'
 import * as R from 'ramda'
@@ -262,6 +262,11 @@ const Login= () => {
 
 const Contenido= () => {
 	const [tieneTokenVigente, participante, esperandoServidorPA]= useSelector( delEstado(['tieneTokenVigente','participante','esperandoServidorPA']) );
+
+	useEffect(() => { //A: la primera vez
+		action('pa/SESION_REVISAR');
+	}, []);
+
 	return (
 		<div>
 			{ esperandoServidorPA > 0 ? 'Esperando' : 'Listo' }

@@ -29,22 +29,60 @@ export function promesaAdict_f(unaFuncion, quiereLog) {
 }
 
 //S: SESION ***************************************************
+function* sesionRevisar(action) {
+	yield put({ type: 'pa/SERVIDOR_ESPERANDO', datos: 'SESION' })
+
+	let { datos, error } = yield call(promesaAdict_f(PaApi.apiNecesitoLoginP,'sesion revisar'));
+	if (datos===false) { //A: no necesito login
+		yield put({ type: 'pa/SESION_CUANDO_TIENE', datos: {participante: PaApi.usuarioLeer() } });
+	}
+	else {
+		yield put({ type: 'pa/SESION_CUANDO_NO_TIENE', datos });
+	}
+}
 
 function* sesionRegistrarse(action) {
 	yield put({ type: 'pa/SERVIDOR_ESPERANDO', datos: 'SESION' })
 
-	const { datos, error } = yield call(promesaAdict_f(PaApi.apiLogin,'saga registrarse'), action.datos.participante, action.datos.clave);
-	if (!error && datos && !datos.error) {
+	const { participante, clave }= action.datos;
+	let { datos, error } = yield call(promesaAdict_f(PaApi.apiLogin), participante, clave);
+
+	datos= datos || {}; datos.error= datos.error || error;
+
+	if (!datos.error) {
 		yield put({ type: 'pa/SESION_CUANDO_TIENE', datos: {participante: PaApi.usuarioLeer() } });
 	}
 	else {
-		yield put({ type: 'pa/SESION_CUANDO_NO_TIENE', error });
+		yield put({ type: 'pa/SESION_CUANDO_NO_TIENE', datos });
 	}
+
 }
 
+//S: CONSULTA GENERICA (USAR ESPECIFICAS!) ********************
+function* apiBuscar(action) {
+	const { cursor_id, consulta, filtros }= action.datos;
+
+	yield put({ type: 'pa/SERVIDOR_ESPERANDO', datos: 'BUSCAR/'+cursor_id })
+
+	let { datos, error } = yield call(promesaAdict_f(PaApi.apiConsultar), consulta, filtros );
+	window.X= error
+	if (PaApi.esErrorNecesitaLogin(error)) {
+		yield put({ type: 'pa/SESION_CUANDO_NO_TIENE', datos: {}  })
+	}
+
+	datos= datos || {}; datos.error= datos.error || (error+'');
+	datos.cursor_id= cursor_id;
+
+	yield put({ type: 'pa/API_CUANDO_RECIBE', datos });
+}
+
+//S: conectar mensajes redux a sagas *************************
 export function* rootSaga() { //U: un solo punto de entrada para todas las "sagas"
 	yield all([
+		takeEvery('pa/SESION_REVISAR', sesionRevisar),
 		takeEvery('pa/SESION_REGISTRARSE', sesionRegistrarse),
+
+		takeEvery('pa/API_BUSCAR', apiBuscar),
 	])
 }
 
