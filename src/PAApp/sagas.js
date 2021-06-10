@@ -65,7 +65,6 @@ function* apiBuscar(action) {
 	yield put({ type: 'pa/SERVIDOR_ESPERANDO', datos: 'BUSCAR/'+cursor_id })
 
 	let { datos, error } = yield call(promesaAdict_f(PaApi.apiConsultar), consulta, filtros );
-	window.X= error
 	if (PaApi.esErrorNecesitaLogin(error)) {
 		yield put({ type: 'pa/SESION_CUANDO_NO_TIENE', datos: {}  })
 	}
@@ -76,6 +75,20 @@ function* apiBuscar(action) {
 	yield put({ type: 'pa/API_CUANDO_RECIBE', datos });
 }
 
+function* apiBuscarTextos(action) {
+	const { cursor_id, filtros }= action.datos;
+	logmsg('apiBuscarTextos',action);
+	yield put({
+		type:'pa/API_BUSCAR', 
+		datos: { 
+			cursor_id: cursor_id, 
+			consulta: ['textoLista', 'id','texto','fhCreado',['deQuien','username'], 
+				['pageInfo', 'endCursor', 'hasNextPage', 'startCursor','hasPreviousPage']
+			], 
+			filtros: {orderBy:['-fhCreado'], first: 3, ...filtros}
+	}});
+}
+
 //S: conectar mensajes redux a sagas *************************
 export function* rootSaga() { //U: un solo punto de entrada para todas las "sagas"
 	yield all([
@@ -83,6 +96,7 @@ export function* rootSaga() { //U: un solo punto de entrada para todas las "saga
 		takeEvery('pa/SESION_REGISTRARSE', sesionRegistrarse),
 
 		takeEvery('pa/API_BUSCAR', apiBuscar),
+		takeEvery('pa/API_BUSCAR_TEXTOS', apiBuscarTextos),
 	])
 }
 

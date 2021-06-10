@@ -15,8 +15,9 @@ const delEstado = listaProps => R.pipe(R.props(['pa']), R.nth(0), R.props(listaP
 
 /* DBG { */
 window.R= R;
-window.store= store
-window.PaApi= PaApi
+window.store= store;
+window.PaApi= PaApi;
+window.get_p= get_p;
 /* DBG } */
 
 import {
@@ -44,6 +45,7 @@ import {
 	Icon,
 	Label,
 } from 'semantic-ui-react'
+import { get_p } from '../services/util'
 
 const MiMenu= ({titulo}) => (
 	<Menu fixed='top' inverted>
@@ -95,28 +97,22 @@ const Acciones= () => (
 )
 
 function PaginaUnTexto() {
+
+	const texto= useSelector( s => get_p(s,'{pa{cursores{PaginaUnTexto{datos[0') );
+
+	useEffect(() => {
+		action('pa/API_BUSCAR_TEXTOS', {cursor_id: 'PaginaUnTexto'});
+	},[]);
+
 	//IDEA: los controles para citar, me interesa, responder aparecen tocando parrafo
 	return (
 		<div>
-			<MiMenu />
+			<MiMenu titulo="PaginaUnTexto"/>
 			<Acciones />
 			<Container text style={{ marginTop: '7em' }}>
-				<Header as='h1'>Semantic UI React Fixed Template</Header>
-				<div>
-					{ _.range(20).map( x => {
-						const [verControles, setVerControles]= useState(false);
-						return (<>
-							<p key={x} onClick={() => setVerControles(true)}>
-								{ loremIpsum() }
-							</p>
-							<div style={{display: verControles ? 'block' : 'none'}}>
-								<button onClick={() => setVerControles(false)}>Citar</button>
-								Otras cosas que podes hacer con este texto/parrafo
-							</div>
-							</>
-						)
-					}) }
-				</div>
+				<MarkdownPA>
+					{texto ? texto.texto : '(cargando)'}
+				</MarkdownPA>
 			</Container>
 			<div style={{position: 'fixed', bottom: 0, background: '#eee', width: '100%', height: '2em',textAlign:'center'}}>
 				Aca quiero una barrita tipo linea de tiempo, con un boton bien a la izq para ir un texto atras, uno bien a la der para ir uno adelante
@@ -128,7 +124,7 @@ function PaginaUnTexto() {
 function PaginaFoco() {
 	return (
 	<div>
-		<MiMenu />
+		<MiMenu titulo="Foco"/>
 		<Container text style={{ marginTop: '7em' }}>
 			<h2>Con</h2>
 				<div>
@@ -252,9 +248,9 @@ const Login= () => {
 
 	return (
 		<div>
-			Login: 
-			<input name="participante" onChange={cuandoCambiaInput} />
-			<input name="clave" onChange={cuandoCambiaInput} type="password"/>
+			Necesitás registrarte<br />	
+			<input name="participante" onChange={cuandoCambiaInput} /><br />	
+			<input name="clave" onChange={cuandoCambiaInput} type="password"/><br />	
 			<button onClick={() => action('pa/SESION_REGISTRARSE', valores)}>Registrarse</button>
 		</div>
 	)
@@ -272,7 +268,7 @@ const Contenido= () => {
 			{ esperandoServidorPA > 0 ? 'Esperando' : 'Listo' }
 			<div>
 				{ tieneTokenVigente 
-				? ("Hola "+participante)
+				? <XApp />
 				: <Login />
 				}
 			</div>

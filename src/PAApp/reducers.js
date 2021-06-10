@@ -55,6 +55,7 @@ const AccionAReducer= { //U: los mensajes que recibe el store y como se reducen
 	API_BUSCAR_ANTES: se_ocupa_saga, //U: anteriores a los que trajo segun orderBy
 	API_BUSCAR_DESPUES: se_ocupa_saga, //U: posteriores a los que trajo segun orderBy
 
+	API_BUSCAR_TEXTOS: se_ocupa_saga, 
 }
 
 //VER: https://redux-toolkit.js.org/api/createSlice
