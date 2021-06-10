@@ -97,11 +97,12 @@ const Acciones= () => (
 )
 
 function PaginaUnTexto() {
+	const params= {cursor_id: 'PaginaUnTexto'};
 
-	const texto= useSelector( s => get_p(s,'{pa{cursores{PaginaUnTexto{datos[0') );
+	const texto= useSelector( s => get_p(s,'{pa{cursores{PaginaUnTexto{datos{actual') );
 
 	useEffect(() => {
-		action('pa/API_BUSCAR_TEXTOS', {cursor_id: 'PaginaUnTexto'});
+		action('pa/API_BUSCAR_TEXTOS', params);
 	},[]);
 
 	//IDEA: los controles para citar, me interesa, responder aparecen tocando parrafo
@@ -115,7 +116,8 @@ function PaginaUnTexto() {
 				</MarkdownPA>
 			</Container>
 			<div style={{position: 'fixed', bottom: 0, background: '#eee', width: '100%', height: '2em',textAlign:'center'}}>
-				Aca quiero una barrita tipo linea de tiempo, con un boton bien a la izq para ir un texto atras, uno bien a la der para ir uno adelante
+				<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: -1 })}>Anterior</button>
+				<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: 1 })}>Siguiente</button>
 			</div>
 		</div>
 	)
