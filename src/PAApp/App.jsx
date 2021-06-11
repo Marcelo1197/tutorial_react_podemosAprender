@@ -109,15 +109,20 @@ function PaginaUnTexto() {
 	return (
 		<div>
 			<MiMenu titulo="PaginaUnTexto"/>
-			<Acciones />
-			<Container text style={{ marginTop: '7em' }}>
+			<Container text style={{ marginTop: '7em', width: '90vw', overflow: 'scroll' }}>
 				<MarkdownPA>
 					{texto ? texto.texto : '(cargando)'}
 				</MarkdownPA>
 			</Container>
-			<div style={{position: 'fixed', bottom: 0, background: '#eee', width: '100%', height: '2em',textAlign:'center'}}>
-				<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: -1 })}>Anterior</button>
-				<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: 1 })}>Siguiente</button>
+			<div style={{border: '1px dotted red', position: 'fixed', top: '50px', right: '0px', background: '#eee', height: '100vh', width: '2em', zIndex: 10}}>
+				<div style={{transform:'rotate(90deg)', transformOrigin: 'left bottom',border: '1px dotted red', position: 'relative', width: '100vh', textAlign: 'center', }}>
+					<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: -1 })}>-Mes</button>
+					<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: -1 })}>-Semana</button>
+					<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: -1 })}>Anterior</button>
+					<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: 1 })}>Siguiente</button>
+					<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: 1 })}>+Semana</button>
+					<button onClick={() => action('pa/API_BUSCAR_TEXTOS', { ...params, relativo: 1 })}>+Mes</button>
+				</div>
 			</div>
 		</div>
 	)
