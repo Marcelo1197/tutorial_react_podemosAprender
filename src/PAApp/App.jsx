@@ -226,51 +226,89 @@ function PaginaPropuestas() {
 }
 
 function Editar() {
+	const textareaRef= React.createRef();
+
 	const [quiereVistaPrevia, setQuiereVistaPrevia]= useState(false);
 	const [valores, setValores, cuandoCambiaInput]= useInput({});
 	const [sugerencias, setSugerencias]= useState([]);
+	const [sugerenciasPos, setSugerenciasPos]= useState([]);
+	const [sugerenciaElegida, setSugerenciaElegida]= useState(0);
 
 	const TAG_LEN_MAX= 20; //U: largo maximo de un tag, nombre de usuario
 
 	const cuandoCambiaTextArea= (e) => {
-		cuandoCambiaInput(e);
 		const ta= e.target;
 		const sel0= ta.selectionStart
 		const val= ta.value;
 
-		let search= '';
-		for (let i=0; i<TAG_LEN_MAX && i<sel0; i++) {
-			let chr= val[sel0 - i -1]; //A: vamos de der a izq
-			//DBG: logmsg('TAi',{sel0, i, chr });	
-			if (chr=='#' || chr=='@') { break; } //A: llegamos donde empieza search
-			else if (chr.match(/[a-z0-9\._-]/)) { search= chr+search } //A: seguimos buscando
-			else { search=''; break; }
+		setValores({ ...valores, texto: val});
+
+		let search_pos_izq= sel0-1;
+		for (; 0<=search_pos_izq ; search_pos_izq--) {
+			if ((sel0-search_pos_izq)>TAG_LEN_MAX) { search_pos_izq= -1; } //A: ya buscamos demasiado
+			else {
+				let chr= val[search_pos_izq]; //A: vamos de der a izq
+				//DBG: logmsg('TAi',{sel0, i, chr });	
+				if (chr=='#' || chr=='@') { break; } //A: llegamos donde empieza search
+				else if (! chr.match(/[a-z0-9\._-]/)) { search_pos_izq= -1 } //A: se corto
+			}
 		}
 
-		logmsg('TA',{sel0, search });	
-		if (search!='') {
-			setSugerencias(R.range(1,6).map(n => (search+n)));
+		if (0 <= search_pos_izq) {
+			let search_pos_der= sel0; //A: arrancamos desde el cursor
+			for (; search_pos_der < val.length && val[search_pos_der].match(/[a-z0-9\._-]/); search_pos_der++) {
+			}
+
+			let search= val.substr(search_pos_izq, search_pos_der - search_pos_izq)
+			//DBG: logmsg('TA',{sel0, search });	
+			if (search!='') {
+				setSugerencias(R.range(1,6).map(n => (search[0]+'sugeri'+search.substr(1)+n)));
+				setSugerenciasPos([search_pos_izq, search_pos_der]); //A: desde donde insertamos
+				setSugerenciaElegida(0);
+				return; 
+			}
 		}
-		else {
+
+		if (sugerencias.length>0) {
 			setSugerencias([]);
+			setSugerenciasPos([]); //A: desde donde insertamos
 		}
 	};
+
+	const insertarSugerencia= (txt) => {
+		logmsg('insertarSugerencia',{txt, sugerenciasPos});
+		setValores({...valores, 
+			texto: valores.texto.substr(0, sugerenciasPos[0]) + txt +	valores.texto.substr(sugerenciasPos[1])
+		});
+		setSugerenciasPos([sugerenciasPos[0], sugerenciasPos[0]+txt.length]);	
+	} 
+
+	const cuandoTeclaTextArea= (e) => {
+		if (sugerencias.length==0) { return } //A: no hacemos nada
+		if (!e.ctrlKey) { return } //A: no hacemos nada
+		if (e.code=='ArrowDown') { 
+			insertarSugerencia(sugerencias[sugerenciaElegida]);
+			setSugerenciaElegida( (sugerenciaElegida+1) % sugerencias.length );
+			e.preventDefault();
+		}
+	}
 
 	return (
 		<div>
 			Editar
 			<div>
 				{sugerencias.map( s => 
-					(<button>{s}</button>)
+					(<button onClick={() => insertarSugerencia(s)}>{s}</button>)
 				)}
 			</div>
 
 			<textarea 
 				name="texto"
 				onChange={cuandoCambiaTextArea}
+				value={valores.texto}
+				onKeyDown={cuandoTeclaTextArea}
 				style={{width: '100vw', height: '80vh', display: 'block'}}
 			>
-			Hola
 			</textarea>
 		</div>
 	)
