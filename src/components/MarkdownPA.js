@@ -13,15 +13,16 @@ const ParrafoPA= (props) => {
 	//IDEA: puedo responder, guardar, etc. parrafo por parrafo
 	//TODO: recibir props de el que pone la etiqueta MarkdownPA
 	return (<div>
-		<p onClick={() => setQuiereVerControles(true)}>{props.children}</p>
+		<p onClick={() => setQuiereVerControles( !quiereVerControles)}>{props.children}</p>
 		<div style={{display: quiereVerControles ? 'block' : 'none'}}>
+			{props.controles && props.controles()}
 			<button onClick={() => setQuiereVerControles(false)}>Cerrar</button>
 		</div>
 	</div>)
 }
 
 
-const ComponentesPA = {
+const ComponentesPA = (ctxt) => ({
 	code({node, inline, className, children, ...props}) {
 		const match = /language-(\w+)/.exec(className || '')
 		return !inline && match ? (
@@ -34,7 +35,7 @@ const ComponentesPA = {
 	},
 
 	p({node, inline, className, children, ...props}) {
-		return (<ParrafoPA>{children}</ParrafoPA>)
+		return (<ParrafoPA {...ctxt} {...props}>{children}</ParrafoPA>)
 	},
 
 	a(props) {
@@ -47,8 +48,8 @@ const ComponentesPA = {
 		}
 	},
 
-}
+});
 
 export default function MarkdownPA(props) {
-	return (<ReactMarkdown components={ComponentesPA} {...props}>{props.children}</ReactMarkdown>);
+	return (<ReactMarkdown components={ComponentesPA(props)} {...props}>{props.children}</ReactMarkdown>);
 }

@@ -13,10 +13,12 @@ const SagaMiddleware = createSagaMiddleware()
 //VER: https://redux-toolkit.js.org/api/serializabilityMiddleware
 const isSerializable = (value) => (value instanceof Date) || isPlain(value);
 
-const store= configureStore({
-	reducer: {
+const RootReducer= {
 		pa: reducer,
-	},
+}
+
+const store= configureStore({
+	reducer: RootReducer,
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({
 		serializableCheck: {
 			isSerializable //A: no poner warning por fechas
