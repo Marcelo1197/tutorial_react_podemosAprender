@@ -45,7 +45,7 @@ import {
 	Icon,
 	Label,
 } from 'semantic-ui-react'
-import { get_p } from '../services/util'
+import { get_p, logmsg } from '../services/util'
 
 const MiMenu= ({titulo}) => (
 	<Menu fixed='top' inverted>
@@ -86,7 +86,7 @@ const Acciones= () => (
 
 		<Menu.Item>
 			<Icon name='facebook' />
-			Share
+			Compartir	
 		</Menu.Item>
 
 		<Menu.Item>
@@ -225,12 +225,65 @@ function PaginaPropuestas() {
 	)
 }
 
+function Editar() {
+	const [quiereVistaPrevia, setQuiereVistaPrevia]= useState(false);
+	const [valores, setValores, cuandoCambiaInput]= useInput({});
+	const [sugerencias, setSugerencias]= useState([]);
+
+	const TAG_LEN_MAX= 20; //U: largo maximo de un tag, nombre de usuario
+
+	const cuandoCambiaTextArea= (e) => {
+		cuandoCambiaInput(e);
+		const ta= e.target;
+		const sel0= ta.selectionStart
+		const val= ta.value;
+
+		let search= '';
+		for (let i=0; i<TAG_LEN_MAX && i<sel0; i++) {
+			let chr= val[sel0 - i -1]; //A: vamos de der a izq
+			//DBG: logmsg('TAi',{sel0, i, chr });	
+			if (chr=='#' || chr=='@') { break; } //A: llegamos donde empieza search
+			else if (chr.match(/[a-z0-9\._-]/)) { search= chr+search } //A: seguimos buscando
+			else { search=''; break; }
+		}
+
+		logmsg('TA',{sel0, search });	
+		if (search!='') {
+			setSugerencias(R.range(1,6).map(n => (search+n)));
+		}
+		else {
+			setSugerencias([]);
+		}
+	};
+
+	return (
+		<div>
+			Editar
+			<div>
+				{sugerencias.map( s => 
+					(<button>{s}</button>)
+				)}
+			</div>
+
+			<textarea 
+				name="texto"
+				onChange={cuandoCambiaTextArea}
+				style={{width: '100vw', height: '80vh', display: 'block'}}
+			>
+			Hola
+			</textarea>
+		</div>
+	)
+}
 
 function XApp() {
 	const [quePagina, setQuePagina]= useState();
 	return (
 		<Router>
 			<Switch>
+				<Route path='/editar'>
+					<Editar />
+				</Route>
 				<Route path='/propuestas'>
 					<PaginaPropuestas />
 				</Route>
