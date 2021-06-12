@@ -66,6 +66,7 @@ function plantumlImgUrlPara(texto_diagrama) { //U: una url que se puede usar en 
 }
 
 function plantumlImgHtmlPara(texto_diagrama) { //U: un tag img con la url del diagrama
+	return `![diagrama](${plantumlImgUrlPara(texto_diagrama)})`
 	return `<div class="diagrama"><img src="${plantumlImgUrlPara(texto_diagrama)}" alt="diagrama"></div>`
 }
 

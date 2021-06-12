@@ -7,6 +7,9 @@ import {Link as RouterLink} from "react-router-dom"; //U: seguir navegando la SP
 
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import {dark} from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { markdownTransformarHTML, urlParamsParaDiccionario } from '../services/pa-lib';
+
+const siempreArray= x => (Array.isArray(x) ? x : x!=null ? [x] : []);
 
 const ParrafoPA= (props) => {
 	const [quiereVerControles, setQuiereVerControles]= useState(false);
@@ -51,5 +54,12 @@ const ComponentesPA = (ctxt) => ({
 });
 
 export default function MarkdownPA(props) {
-	return (<ReactMarkdown components={ComponentesPA(props)} {...props}>{props.children}</ReactMarkdown>);
+	return (
+		<ReactMarkdown components={ComponentesPA(props)} {...props}>
+			{ siempreArray(props.children)
+					.map( e => markdownTransformarHTML(e).markdown_generado )
+					.join('\n\n')
+			}
+		</ReactMarkdown>
+	);
 }
