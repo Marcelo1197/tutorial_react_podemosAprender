@@ -226,6 +226,7 @@ function PaginaPropuestas() {
 	)
 }
 
+import { Form, TextArea } from 'semantic-ui-react'
 function Editar() {
 	const textareaRef= React.createRef();
 
@@ -303,14 +304,19 @@ function Editar() {
 				)}
 			</div>
 
-			<textarea 
-				name="texto"
-				onChange={cuandoCambiaTextArea}
-				value={valores.texto}
-				onKeyDown={cuandoTeclaTextArea}
-				style={{width: '100vw', height: '80vh', display: 'block'}}
-			>
-			</textarea>
+			<Form>
+				<TextArea
+					name="texto"
+					onChange={cuandoCambiaTextArea}
+					value={valores.texto}
+					onKeyDown={cuandoTeclaTextArea}
+					style={{
+						width: '100vw', height: '80vh', display: 'block',
+						backgroundColor: getComputedStyle(document.body).backgroundColor,
+						color: 	getComputedStyle(document.body).color,
+					}}
+				/>
+			</Form>
 		</div>
 	)
 }

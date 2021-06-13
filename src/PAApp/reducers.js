@@ -16,6 +16,9 @@ const EstadoInicial= { //U: como se vería el estado
 	cursores: {}, //U: dondeEstaMirandoId -> filtros -> cursor
 };
 
+try { EstadoInicial.cfg_ui= JSON.parse(localStorage.cfg_ui) }
+catch (ex) {} //A:IGNORADA
+
 //VER: https://redux-toolkit.js.org/api/createReducer
 //VER: https://redux-toolkit.js.org/api/createReducer#usage-with-the-map-object-notation
 
@@ -63,6 +66,7 @@ const AccionAReducer= { //U: los mensajes que recibe el store y como se reducen
 	//S: CFG UI *****************************************************
 	CFG_UI_TEMA: (state, { datos }) => {
 		state.cfg_ui.tema_id= datos.tema_id;
+		localStorage.cfg_ui= JSON.stringify(state.cfg_ui);
 	},
 }
 
