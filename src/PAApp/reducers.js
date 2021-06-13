@@ -9,6 +9,9 @@ const EstadoInicial= { //U: como se vería el estado
 	participante: null, //U: el username de la participante
 	tieneTokenVigente: false, //U: si probamos el token y sabemos que está vigente
 	esperandoServidorPA: 0, //U: cuantas respuestas del servidor estamos esperando 
+	cfg_ui: { 
+		tema_id: '',
+	},
 	textos: {}, //U: id a texto
 	cursores: {}, //U: dondeEstaMirandoId -> filtros -> cursor
 };
@@ -56,6 +59,11 @@ const AccionAReducer= { //U: los mensajes que recibe el store y como se reducen
 	API_BUSCAR_DESPUES: se_ocupa_saga, //U: posteriores a los que trajo segun orderBy
 
 	API_BUSCAR_TEXTOS: se_ocupa_saga, 
+
+	//S: CFG UI *****************************************************
+	CFG_UI_TEMA: (state, { datos }) => {
+		state.cfg_ui.tema_id= datos.tema_id;
+	},
 }
 
 //VER: https://redux-toolkit.js.org/api/createSlice

@@ -11,13 +11,14 @@ import * as PaApi from '../services/pa-api'
 
 import store from './store'
 const action = (type, datos) => store.dispatch({type, datos})
-const delEstado = listaProps => R.pipe(R.props(['pa']), R.nth(0), R.props(listaProps)) //U: una funcion que extrae las props de la lista del estado
+
+const get_p_varias_f = (...listaProps) => state => listaProps.map(propPath => (get_p(state, propPath))); //U: una funcion que extrae las props de la lista del estado
 
 /* DBG { */
 window.R= R;
 window.store= store;
 window.PaApi= PaApi;
-window.get_p= get_p;
+window.get_p_varias_f= get_p_varias_f;
 /* DBG } */
 
 import {
@@ -314,6 +315,20 @@ function Editar() {
 	)
 }
 
+import Tema, { Temas } from '../components/TemaConfigurable';
+function CfgTema() {
+	return (
+		<div>
+			{Temas.map( id => (
+				<button onClick={() => action('pa/CFG_UI_TEMA', {tema_id: id})}>
+					{id}
+				</button>
+			))}
+		</div>
+	)
+}
+
+
 function XApp() {
 	const [quePagina, setQuePagina]= useState();
 	return (
@@ -366,7 +381,8 @@ const Login= () => {
 }
 
 const Contenido= () => {
-	const [tieneTokenVigente, participante, esperandoServidorPA]= useSelector( delEstado(['tieneTokenVigente','participante','esperandoServidorPA']) );
+	const [tieneTokenVigente, participante, esperandoServidorPA]= useSelector( get_p_varias_f('{pa{tieneTokenVigente','{pa{participante','{pa{esperandoServidorPA') );
+	const [cfg_ui_tema_id]= useSelector( get_p_varias_f('{pa{cfg_ui{tema_id') );
 
 	useEffect(() => { //A: la primera vez
 		action('pa/SESION_REVISAR');
@@ -375,6 +391,8 @@ const Contenido= () => {
 	return (
 		<div>
 			{ esperandoServidorPA > 0 ? 'Esperando' : 'Listo' }
+			<CfgTema />
+			<Tema tema_id={cfg_ui_tema_id} />
 			<div>
 				{ tieneTokenVigente 
 				? <XApp />
