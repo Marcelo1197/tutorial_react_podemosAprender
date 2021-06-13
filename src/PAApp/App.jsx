@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 
-import _ from 'lodash'
 import * as R from 'ramda'
 
 import { Provider } from 'react-redux'
