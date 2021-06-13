@@ -5,6 +5,7 @@
   "scripts": {
     "start": "vite --host 0.0.0.0",
     "build": "vite build",
+		"clean": "rm -Rf build",
     "serve": "vite preview",
     "test": "jest"
   },
