@@ -5,7 +5,7 @@
   "scripts": {
     "start": "vite --host 0.0.0.0",
     "build": "vite build",
-		"clean": "rm -Rf build",
+    "clean": "rm -Rf build",
     "serve": "vite preview",
     "test": "jest"
   },
@@ -17,6 +17,7 @@
     "@material-ui/utils": "^4.11.2",
     "@reduxjs/toolkit": "^1.5.1",
     "clsx": "^1.1.1",
+    "eruda": "^2.4.1",
     "lodash": "^4.17.21",
     "marked": "^2.0.5",
     "ramda": "^0.27.1",

@@ -321,13 +321,14 @@ function Editar() {
 }
 
 import Tema, { Temas } from '../components/TemaConfigurable';
+import { Button } from 'semantic-ui-react'
 function CfgTema() {
 	return (
 		<div>
 			{Temas.map( id => (
-				<button onClick={() => action('pa/CFG_UI_TEMA', {tema_id: id})}>
+				<Button onClick={() => action('pa/CFG_UI_TEMA', {tema_id: id})}>
 					{id}
-				</button>
+				</Button>
 			))}
 		</div>
 	)
@@ -337,7 +338,6 @@ function CfgTema() {
 function XApp() {
 	const [quePagina, setQuePagina]= useState();
 	return (
-		<Router>
 			<Switch>
 				<Route path='/editar'>
 					<Editar />
@@ -368,9 +368,9 @@ function XApp() {
 					</MarkdownPA>
 				</Route>
 			</Switch>
-		</Router>
 	)
 }
+
 
 const Login= () => {
 	const [ valores, setValores, cuandoCambiaInput ]= useInput();
@@ -389,22 +389,33 @@ const Contenido= () => {
 	const [tieneTokenVigente, participante, esperandoServidorPA]= useSelector( get_p_varias_f('{pa{tieneTokenVigente','{pa{participante','{pa{esperandoServidorPA') );
 	const [cfg_ui_tema_id]= useSelector( get_p_varias_f('{pa{cfg_ui{tema_id') );
 
+	const [quiereConfigurar, setQuireConfigurar]= useState(false);
+
 	useEffect(() => { //A: la primera vez
 		action('pa/SESION_REVISAR');
 	}, []);
 
+		
 	return (
-		<div>
-			{ esperandoServidorPA > 0 ? 'Esperando' : 'Listo' }
-			<CfgTema />
+		<Router>
 			<Tema tema_id={cfg_ui_tema_id} />
+			<div style={{zIndex: 9999, position: 'fixed', top: 0, left: 0}}>
+				{ esperandoServidorPA > 0 ? 'Esperando' : 'Listo' }
+				<Button basic onClick={() => setQuireConfigurar(!quiereConfigurar)}>Desarrollo</Button>
+
+				<div style={{display: quiereConfigurar ? 'block' : 'none', 
+					backgroundColor: getComputedStyle(document.body).backgroundColor}}>
+					<RouterLink to='/'>Inicio</RouterLink>
+					<CfgTema />
+				</div>
+			</div>
 			<div>
 				{ tieneTokenVigente 
 				? <XApp />
 				: <Login />
 				}
 			</div>
-		</div>
+		</Router>
 	)
 }
 
