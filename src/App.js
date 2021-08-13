@@ -8,6 +8,8 @@ import {incrementar, decrementar, resetear } from "./redux/actions";
 import ContadorBarritas from "./components/ContadorBarrita";
 import ContadorNumeros from "./components/ContadorNumeros";
 
+import "./App.css"
+
 function App() {
 
   const dispatch = useDispatch();
