@@ -1,0 +1,11 @@
+.contador-numeros {
+  height: 200px;
+  width: 300px;
+  background-color: cornflowerblue;
+}
+
+.contador-barritas {
+  height: 200px;
+  width: 300px;
+  background-color: cornsilk;
+}
