@@ -1,49 +1,29 @@
-# app_podemosaprender con React y Material UI
+# Tutorial de React.js con Redux
 
 ## Objetivos
-
 Que cualquier persona pueda crear pantallas aunque sepa poquito.
 
-### Consumir y escribir datos en si.podemosaprender.org
+### Flujo de trabajo
+Para hacer nuestras aplicaciones, queremos seguir el siguiente flujo de trabajo:
 
-Queremos
+1- Dibujamos las pantallas, sin preocuparnos del código
+2- Creamos un estado inicial para toda la aplicación
+3- Programamos todo lo necesario para conectar el store de redux con nuestra app
 
-- una API Javascript bien simple y que no dependa de React en /services/pa-api.js
-- Hook React que la envuelva /hooks/usePaApi.js
+### Correr el proyecto
 
-TODO: Agregar en pa-api.js funciones como traerCharlas() que escondan las URLs y los parámetros.
+Pueden ver el código y la app corriendo desde glitch: https://glitch.com/edit/#!/tutorial-react-bpodemosaprender
 
-### Hacer pantallas
+Y para correrlo localmente:
 
-Se puede partir de un ejemplo como /pages/QueHago.jsx
-
-Buscar componentes en https://material-ui.com/components/avatars/
-
-En /src/App.js importar la nueva pantalla y agregarla a las rutas como las otrás
-
-
-#### Queries
-
+1- Clonar el repositorio haciendo 
 ~~~
-{ 
-charlaitemLista(textoId: "VGV4dG9Ob2RlOjQyNQ==") {
-  edges { node { charla { titulo }, orden } }
-}
-texto(id: "VGV4dG9Ob2RlOjQyNQ==") { texto }
-}
+git clone https://github.com/Marcelo1197/tutorial_react_podemosAprender.git
 ~~~
-
-## Tests unitarios
-
-Para testear la aplicación preferimos usar tests end-to-end, que testean desde la pantalla hasta el servidor.
-
-Estos los usamos para desarrollar más rápido testeando funciones y librerías sin tener que pasar por la pantalla.
-
-Se ejecutan con 
+2- Instalar las dependencias con
 ~~~
-npm run test
+npm install
+3- Correr el proyecto con
 ~~~
-
-Están en la carpeta src/test
-
-Podés extraer algunas recetas de [el sitio de React](https://reactjs.org/docs/testing-recipes.html)
+npm start
+~~~
