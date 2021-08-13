@@ -10,7 +10,7 @@ import ContadorNumeros from "./components/ContadorNumeros";
 
 import "./App.css"
 
-function App() {
+export default function App() {
 
   const dispatch = useDispatch();
 
